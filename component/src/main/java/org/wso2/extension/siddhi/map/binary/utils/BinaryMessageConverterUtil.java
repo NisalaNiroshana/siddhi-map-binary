@@ -59,22 +59,20 @@ public final class BinaryMessageConverterUtil {
     }
 
     public static int getSize(Object data, Attribute.Type type) {
-        switch (type) {
-
-            case STRING:
-                return 4 + ((String) data).length();
-            case INT:
-                return 4;
-            case LONG:
-                return 8;
-            case FLOAT:
-                return 4;
-            case DOUBLE:
-                return 8;
-            case BOOL:
-                return 1;
-            default:
-                return 4;
+        if (data instanceof String) {
+            return 4 + ((String) data).length();
+        } else if (data instanceof Integer) {
+            return 4;
+        } else if (data instanceof Long) {
+            return 8;
+        } else if (data instanceof Float) {
+            return 4;
+        } else if (data instanceof Double) {
+            return 8;
+        } else if (data instanceof Boolean) {
+            return 1;
+        } else {
+            return 4;
         }
     }
 

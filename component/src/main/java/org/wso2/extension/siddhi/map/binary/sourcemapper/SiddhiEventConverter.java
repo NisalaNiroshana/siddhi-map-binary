@@ -32,15 +32,26 @@ import java.nio.ByteBuffer;
  */
 public class SiddhiEventConverter {
     static final Logger LOG = Logger.getLogger(SiddhiEventConverter.class);
+    private static int count = 0;
 
     public static Event[] toConvertToSiddhiEvents(ByteBuffer messageBuffer, Attribute.Type[] attributeTypes) {
         try {
-            int numberOfEvents = messageBuffer.getInt();
-
-            Event[] events = new Event[numberOfEvents];
-            for (int i = 0; i < numberOfEvents; i++) {
-                events[i] = getEvent(messageBuffer, attributeTypes);
+            String streamId;
+            int stringSize = messageBuffer.getInt();
+            if (stringSize == 0) {
+                streamId = null;
+            } else {
+                streamId = BinaryMessageConverterUtil.getString(messageBuffer, stringSize);
             }
+
+            //int numberOfEvents = messageBuffer.getInt();
+
+            Event[] events;
+            //for (int i = 0; i < numberOfEvents; i++) {
+            events = new Event[]{getEvent(messageBuffer, attributeTypes)};
+            //}
+            count++;
+            LOG.info("RECEIVED EVENT - " + streamId + "       ||      " + events[0].toString() + "    |   COUNT " + count);
             return events;
         } catch (UnsupportedEncodingException e) {
             LOG.error(e.getMessage(), e);

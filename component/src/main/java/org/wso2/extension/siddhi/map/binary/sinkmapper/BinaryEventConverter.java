@@ -69,15 +69,4 @@ public class BinaryEventConverter {
         }
         return eventSize;
     }
-
-//    public static void main(String[] args) throws IOException {
-//        for (int j = 0; j < 10; j++) {
-//            long startTime = System.currentTimeMillis();
-//            for (int i = 0; i < 10000000; i++) {
-//                convertToBinaryMessage(new Event[]{new Event(System.currentTimeMillis(),
-//                        new Object[]{"WSO2", i, 10}), new Event(System.currentTimeMillis(),
-//                        new Object[]{"WSO2", i, 10})});
-//            }
-//        }
-//    }
 }
